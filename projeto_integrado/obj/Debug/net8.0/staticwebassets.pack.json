@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\tomaz\\Desktop\\projeto integrador univesp\\projeto-integrador-01-2025\\projeto_integrado\\wwwroot\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\tomaz\\Desktop\\projeto integrador univesp\\projeto-integrador-01-2025\\projeto_integrado\\wwwroot\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\tomaz\\Desktop\\projeto integrador univesp\\projeto-integrador-01-2025\\projeto_integrado\\wwwroot\\busca.html",
+      "PackagePath": "staticwebassets\\busca.html"
+    },
+    {
+      "Id": "C:\\Users\\tomaz\\Desktop\\projeto integrador univesp\\projeto-integrador-01-2025\\projeto_integrado\\wwwroot\\connection.js",
+      "PackagePath": "staticwebassets\\connection.js"
+    },
+    {
+      "Id": "C:\\Users\\tomaz\\Desktop\\projeto integrador univesp\\projeto-integrador-01-2025\\projeto_integrado\\wwwroot\\events.js",
+      "PackagePath": "staticwebassets\\events.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.projeto_integrado.props",
+      "PackagePath": "build\\projeto_integrado.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.projeto_integrado.props",
+      "PackagePath": "buildMultiTargeting\\projeto_integrado.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.projeto_integrado.props",
+      "PackagePath": "buildTransitive\\projeto_integrado.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.projeto_integrado.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
