@@ -1,0 +1,121 @@
+:root {
+    --gray-100: #f8f9fa;
+    --dark-blue: #2c3e50;
+    --white: #ffffff;
+    --ligth-gray: #e0e0e0;
+    --blue: #3498db;
+    --bright-red: #e74c3c;
+    --lime-green: #2ecc71;
+    --muted-gray: #7f8c8d;
+}
+
+body {
+    background-color: var(--gray-100);
+    font-family: Arial, sans-serif;
+}
+
+.bg-blue {
+    background-color: var(--blue);
+}
+
+.bg-lime-green {
+    background-color: var(--lime-green);
+}
+
+.navbar {
+    background-color: var(--dark-blue);
+    color: var(--white);
+}
+
+.search-box {
+    border: 1px solid var(--ligth-gray);
+    border-radius: 10px;
+    padding: 20px;
+    background-color: var(--white);
+}
+
+.search-bar {
+    border: 2px solid var(--blue);
+    border-radius: 25px;
+    padding: 10px 20px;
+}
+
+.search-button {
+    background-color: var(--blue);
+    color: var(--white);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.feature {
+    border: 1px solid var(--ligth-gray);
+    border-radius: 5px;
+    background-color: var(--white);
+    padding: 15px;
+    text-align: center;
+}
+
+.feature-icon {
+    font-size: 40px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.feature-icon.text-danger {
+    color: var(--bright-red);
+}
+
+.feature-icon.text-success {
+    color: var(--lime-green);
+}
+
+.feature-icon.text-primary {
+    color: var(--blue);
+}
+
+.btn-category {
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    background-color: var(--white);
+}
+
+.btn-category.active {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.article {
+    display: flex;
+    border: 1px solid var(--ligth-gray);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.article-indicator {
+    width: 5px;
+}
+
+.article-content {
+    flex: 1;
+}
+
+.footer {
+    background-color: var(--dark-blue);
+    color: var(--white);
+    text-align: center;
+    padding: 10px 0;
+}
+
+
+@media screen and (min-width: 768px) {
+    /* .vh-70 {
+        height: 70vh;
+    } */
+}
