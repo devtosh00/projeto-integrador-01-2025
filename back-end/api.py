@@ -1,0 +1,49 @@
+from flask import Flask, request, jsonify
+import psycopg2
+from parserJSON import JSONParser
+
+app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
+# Teste de conexão com o banco
+def get_db_connection():
+    conn = psycopg2.connect(
+        host="localhost",
+        database="cdc",
+        user="admin",
+        password="admin"
+    )
+    return conn
+
+@app.route('/test', methods=['GET'])
+def test():
+    return jsonify({"message": "API funcionando!"})
+
+@app.route('/query', methods=['POST'])
+def query():
+    try:
+        # Parse the incoming request
+        data = request.get_json()
+        parsed_data = JSONParser.parse_request(data)
+        
+        # Connect to database
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        # Execute query using the parsed data
+        cur.execute(
+            "SELECT * FROM documents WHERE content ILIKE %s LIMIT %s OFFSET %s", 
+            (f"%{parsed_data['content']}%", parsed_data['limit'], parsed_data['offset'])
+        )
+        results = cur.fetchall()
+        cur.close()
+        conn.close()
+        
+        # Format the response
+        return jsonify(JSONParser.format_response(results))
+    except ValueError as e:
+        return jsonify(JSONParser.format_error(str(e))), 400
+    except Exception as e:
+        return jsonify(JSONParser.format_error(f"Server error: {str(e)}", 500)), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
