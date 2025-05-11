@@ -1,4 +1,4 @@
-version: "3.8"
+
 
 services:
   db:
@@ -26,6 +26,7 @@ services:
       - "5000:5000"
     volumes:
       - ./back-end:/app
+      - ./data_ingestion/CDC.pdf:/app/CDC.pdf:ro
 
   front:
     image: nginx:alpine

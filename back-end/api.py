@@ -1,18 +1,17 @@
 from flask import Flask, request, jsonify
+import os
 import psycopg2
 from parserJSON import JSONParser
+from flask_cors import CORS
+from flask import send_from_directory
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
-# Teste de conexão com o banco
-# def get_db_connection():
-#     conn = psycopg2.connect(
-#         host="localhost",
-#         database="cdc",
-#         user="admin",
-#         password="admin"
-#     )
-#     return conn
+CORS(app, origins=["http://localhost:8080"])
+
+@app.route('/')
+def home():
+    return jsonify({"message": "Bem-vindo à API do CDC!"})
 
 def get_db_connection():
     conn = psycopg2.connect(
@@ -22,6 +21,11 @@ def get_db_connection():
         password=os.environ.get("DB_PASSWORD", "admin")
     )
     return conn
+
+
+@app.route('/cdc-pdf')
+def serve_pdf():
+    return send_from_directory('/app', 'CDC.pdf')
 
 @app.route('/test', methods=['GET'])
 def test():
@@ -55,4 +59,4 @@ def query():
         return jsonify(JSONParser.format_error(f"Server error: {str(e)}", 500)), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
