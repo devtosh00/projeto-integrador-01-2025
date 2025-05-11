@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  db:
+    build: ./data_ingestion
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: cdc
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./back-end
+    environment:
+      DB_HOST: db
+      DB_NAME: cdc
+      DB_USER: admin
+      DB_PASSWORD: admin
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./back-end:/app
+
+  front:
+    image: nginx:alpine
+    volumes:
+      - ./front:/usr/share/nginx/html:ro
+    ports:
+      - "8080:80"
+
+volumes:
+  pgdata:

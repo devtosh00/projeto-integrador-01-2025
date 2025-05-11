@@ -5,12 +5,21 @@ from parserJSON import JSONParser
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 # Teste de conexão com o banco
+# def get_db_connection():
+#     conn = psycopg2.connect(
+#         host="localhost",
+#         database="cdc",
+#         user="admin",
+#         password="admin"
+#     )
+#     return conn
+
 def get_db_connection():
     conn = psycopg2.connect(
-        host="localhost",
-        database="cdc",
-        user="admin",
-        password="admin"
+        host=os.environ.get("DB_HOST", "localhost"),
+        database=os.environ.get("DB_NAME", "cdc"),
+        user=os.environ.get("DB_USER", "admin"),
+        password=os.environ.get("DB_PASSWORD", "admin")
     )
     return conn
 
