@@ -15,14 +15,20 @@ def home():
 
 def get_db_connection():
     conn = psycopg2.connect(
-        host=os.environ.get("DB_HOST", "localhost"),
+        host=os.environ.get("DB_HOST", "db"),
         database=os.environ.get("DB_NAME", "cdc"),
         user=os.environ.get("DB_USER", "admin"),
         password=os.environ.get("DB_PASSWORD", "admin")
     )
     return conn
 
-
+# conn = psycopg2.connect(
+# 
+#     user=os.environ.get("POSTGRES_USER", "admin"),
+#     password=os.environ.get("POSTGRES_PASSWORD", "admin"),
+#     host=os.environ.get("POSTGRES_HOST", "db"),
+#     port=os.environ.get("POSTGRES_PORT", "5432")
+# )
 @app.route('/cdc-pdf')
 def serve_pdf():
     return send_from_directory('/app', 'CDC.pdf')

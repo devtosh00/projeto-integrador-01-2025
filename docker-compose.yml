@@ -2,6 +2,7 @@
 
 services:
   db:
+    container_name: db
     build: ./data_ingestion
     environment:
       POSTGRES_USER: admin
@@ -14,6 +15,7 @@ services:
       - pgdata:/var/lib/postgresql/data
 
   backend:
+    container_name: backend
     build: ./back-end
     environment:
       DB_HOST: db
@@ -29,6 +31,7 @@ services:
       - ./data_ingestion/CDC.pdf:/app/CDC.pdf:ro
 
   front:
+    container_name: front
     image: nginx:alpine
     volumes:
       - ./front:/usr/share/nginx/html:ro

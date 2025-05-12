@@ -15,12 +15,19 @@ embeddings = model.encode(paragraphs)
 
 # Connect to DB
 conn = psycopg2.connect(
-    dbname="cdc",
-    user="admin",
-    password="admin",
-    host="localhost"
-)
+        host=os.environ.get("DB_HOST", "localhost"),
+        database=os.environ.get("DB_NAME", "cdc"),
+        user=os.environ.get("DB_USER", "admin"),
+        password=os.environ.get("DB_PASSWORD", "admin")
+    )
 cur = conn.cursor()
+    
+# conn = psycopg2.connect(
+#     dbname="db",
+#     user="admin",
+#     password="admin",
+#     host="localhost"
+# )
 
 # Insert data
 for text, emb in zip(paragraphs, embeddings):
