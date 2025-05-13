@@ -77,10 +77,6 @@ def query():
 
         # Fetch and print the results
         results = cur.fetchall()
-
-        # Close the cursor and connection
-        cur.close()
-        conn.close()
         
         # Format the response
         return jsonify(JSONParser.format_response(results))
