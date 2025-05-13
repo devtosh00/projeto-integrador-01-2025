@@ -80,7 +80,7 @@
             e.preventDefault();
             const content = document.getElementById('consulta-input').value;
 
-            const response = await fetch('http://127.0.0.1:5000/query', {
+            const response = await fetch('http://127.0.0.1:8546/query', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ content: content, limit: 10, offset: 0 })

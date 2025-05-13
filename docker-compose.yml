@@ -2,7 +2,7 @@
 
 services:
   db:
-    container_name: db
+    container_name: semantic-search-cdc
     build: ./data_ingestion
     environment:
       POSTGRES_USER: admin
@@ -11,8 +11,6 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
 
   backend:
     container_name: backend
@@ -25,7 +23,7 @@ services:
     depends_on:
       - db
     ports:
-      - "5000:5000"
+      - "8546:5000"
     volumes:
       - ./back-end:/app
       - ./data_ingestion/CDC.pdf:/app/CDC.pdf:ro
@@ -37,6 +35,3 @@ services:
       - ./front:/usr/share/nginx/html:ro
     ports:
       - "8080:80"
-
-volumes:
-  pgdata:
