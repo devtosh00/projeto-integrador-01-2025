@@ -28,13 +28,6 @@ conn = get_db_connection()
 def home():
     return jsonify({"message": "Bem-vindo à API do CDC!"})
 
-# conn = psycopg2.connect(
-# 
-#     user=os.environ.get("POSTGRES_USER", "admin"),
-#     password=os.environ.get("POSTGRES_PASSWORD", "admin"),
-#     host=os.environ.get("POSTGRES_HOST", "db"),
-#     port=os.environ.get("POSTGRES_PORT", "5432")
-# )
 @app.route('/cdc-pdf')
 def serve_pdf():
     return send_from_directory('/app', 'CDC.pdf')

@@ -62,7 +62,7 @@ class JSONParser:
         for row in results:
             # Convert result tuples to dictionaries with field names
             result_dict = {fields[i]: value for i, value in enumerate(row) 
-                           if i < len(fields) and fields[i] != 'embedding'}
+                        if i < len(fields) and fields[i] != 'embedding'}
             formatted_results.append(result_dict)
         
         return {
@@ -70,6 +70,9 @@ class JSONParser:
             'count': len(formatted_results),
             'results': formatted_results
         }
+    # @staticmethod
+    # def parse_response(results: str, status_code int = 40-) -> Dict[str, Any]:
+
     
     @staticmethod
     def format_error(error_message: str, status_code: int = 400) -> Dict[str, Any]:
