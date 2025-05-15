@@ -1,0 +1,50 @@
+[
+    {
+        "nome": "André",
+        "competencia": "Eng. da Computação",
+        "image": "andre.jpg",
+        "linkedin": ""
+    },
+    {
+        "nome": "Antônio",
+        "competencia": "Eng. da Computação",
+        "image": "antonio.jpg",
+        "linkedin": ""
+    },
+    {
+        "nome": "Dayvide",
+        "competencia": "Ciência de Dados",
+        "image": "dayvide.jpg",
+        "linkedin": ""
+    },
+    {
+        "nome": "Henrique",
+        "competencia": "Bacharelado em TI",
+        "image": "henrique.jpg",
+        "linkedin": "https://www.linkedin.com/in/henrique-da-silva-sousa-2a077622b/"
+    },
+    {
+        "nome": "Juan",
+        "competencia": "Ciência de Dados",
+        "image": "juan.jpg",
+        "linkedin": ""
+    },
+    {
+        "nome": "Matheus",
+        "competencia": "Ciência de Dados",
+        "image": "matheus.jpg",
+        "linkedin": ""
+    },
+    {
+        "nome": "Rafael",
+        "competencia": "Ciência de Dados",
+        "image": "rafael.jpg",
+        "linkedin": "https://www.linkedin.com/in/rafael-t-10a6a4240/"
+    },
+    {
+        "nome": "Tomaz",
+        "competencia": "Ciência de Dados",
+        "image": "tomaz.jpg",
+        "linkedin": "https://www.linkedin.com/in/tomaz-marques-goncalves-da-silva/"
+    }
+]
