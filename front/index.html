@@ -22,9 +22,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="#">Início</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Como Funciona</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Sobre</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contato.html">Contato</a></li>
+                    <li class="nav-item"><a class="nav-link" href="funcao.html">Como Funciona</a></li>
+                    <!-- <li class="nav-item"><a class="nav-link" href="#">Sobre</a></li> -->
+                    <li class="nav-item"><a class="nav-link" href="#">Contato</a></li>
                 </ul>
             </div>
         </div>
@@ -82,13 +82,15 @@
                 localStorage.setItem('articles', null);
             }
         });
-
-        document.getElementById('btn-search').onclick = async function (e) {
+        
+        
+        async function  handleSearch(e) {
             e.preventDefault();
             const query = document.getElementById('consulta-input').value;
 
             if (query.trim().length < 5) {
-                alert('A consulta deve ter pelo menos 5 caracteres.');
+                
+                alert('Erro na consulta: A consulta deve ter pelo menos 5 caracteres.');
                 return;
             }
 
@@ -110,6 +112,20 @@
                 console.error('Erro durante a requisição:', error);
             }
         }
+             // Adiciona evento de clique ao botão
+            document.getElementById('btn-search').onclick = handleSearch;
+
+            // Adiciona evento de tecla ao campo de entrada
+            document.getElementById('consulta-input').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    handleSearch(e);
+                }
+            });
+    ;
+        
+        // Função para extrair título e descrição   
+        
+        
     </script>
 </body>
 

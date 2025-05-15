@@ -1,1 +1,3 @@
 data_ingestion/CDC.txt
+back-end/venv
+back-end/__pycache__/
