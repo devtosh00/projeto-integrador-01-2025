@@ -55,7 +55,9 @@
                 <div class="col-md-4">
                     <div class="feature">
                         <div class="feature-icon text-success">📋</div>
-                        <a href="artigos.html"><h3 class="fs-5">Artigos Explicados</h3></a>
+                        <a href="artigos.html">
+                            <h3 class="fs-5">Artigos Explicados</h3>
+                        </a>
                         <p class="text-muted">Entenda a lei de forma simples e direta</p>
                     </div>
                 </div>
@@ -68,6 +70,8 @@
                 </div>
             </div>
         </section>
+
+        <div id="accessibility-container"></div>
     </main>
 
     <footer class="footer">
@@ -81,15 +85,26 @@
                 localStorage.setItem('query', null);
                 localStorage.setItem('articles', null);
             }
+
+            fetch("./components/accessibility.html")
+                .then(res => res.ok ? res.text() : Promise.reject(`Erro ${res.status}`))
+                .then(html => {
+                    document.getElementById("accessibility-container").innerHTML = html;
+                    const script = document.createElement("script");
+                    script.src = "./js/accessibility.js";
+                    script.onload = () => console.log("Accessibility carregado");
+                    script.onerror = () => console.error("Falha ao carregar accessibility.js");
+                    document.body.appendChild(script);
+                })
+                .catch(err => console.error("Erro ao carregar componente de acessibilidade:", err));
         });
-        
-        
-        async function  handleSearch(e) {
+
+        async function handleSearch(e) {
             e.preventDefault();
             const query = document.getElementById('consulta-input').value;
 
             if (query.trim().length < 5) {
-                
+
                 alert('Erro na consulta: A consulta deve ter pelo menos 5 caracteres.');
                 return;
             }
@@ -112,20 +127,15 @@
                 console.error('Erro durante a requisição:', error);
             }
         }
-             // Adiciona evento de clique ao botão
-            document.getElementById('btn-search').onclick = handleSearch;
+        // Adiciona evento de clique ao botão
+        document.getElementById('btn-search').onclick = handleSearch;
 
-            // Adiciona evento de tecla ao campo de entrada
-            document.getElementById('consulta-input').addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    handleSearch(e);
-                }
-            });
-    ;
-        
-        // Função para extrair título e descrição   
-        
-        
+        // Adiciona evento de tecla ao campo de entrada
+        document.getElementById('consulta-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                handleSearch(e);
+            }
+        });
     </script>
 </body>
 

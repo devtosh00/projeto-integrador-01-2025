@@ -48,6 +48,8 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
+
+        <div id="accessibility-container"></div>
     </main>
 
 
@@ -120,6 +122,18 @@
 
             // Chama ao redimensionar a janela
             window.addEventListener("resize", renderCarousel);
+
+            fetch("./components/accessibility.html")
+                .then(res => res.ok ? res.text() : Promise.reject(`Erro ${res.status}`))
+                .then(html => {
+                    document.getElementById("accessibility-container").innerHTML = html;
+                    const script = document.createElement("script");
+                    script.src = "./js/accessibility.js";
+                    script.onload = () => console.log("Accessibility carregado");
+                    script.onerror = () => console.error("Falha ao carregar accessibility.js");
+                    document.body.appendChild(script);
+                })
+                .catch(err => console.error("Erro ao carregar componente de acessibilidade:", err));
         });
     </script>
 </body>

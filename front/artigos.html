@@ -63,8 +63,10 @@
             </div>
         </div> -->
 
+        <div id="accessibility-container"></div>
+
     </main>
-    
+
 
     <footer class="footer">
         <p class="mb-0">© 2025 Tá na Lei - Todos os direitos reservados</p>
@@ -84,7 +86,8 @@
             const extractTitleAndDescription = content => {
                 //if(!content.toLowerCase()!="(vetado)."){//.includes("(Vetado).")){
                 const match = content.match(/^(CAPITULO\s+\w+\s+-\s+Art\.\s+\d+[A-Z0-9\-]*(?:º-)?\.?)\s*(.*)$/s);
-                return match ? { title: match[1], description: match[2] } : { title: "", description: content }; };
+                return match ? { title: match[1], description: match[2] } : { title: "", description: content };
+            };
 
             // Função para limitar a descrição por número de palavras
             const limitWords = (description, wordLimit, index) => {
@@ -129,7 +132,7 @@
             const articles = JSON.parse(localStorage.getItem('articles') || '{"results": []}');
             const articlesContainer = document.querySelector('main');
 
-            var  ind =0;
+            var ind = 0;
             // Gera o HTML para cada artigo
             articles.results.forEach((article, index) => {
                 console.log(article, ind);
@@ -144,13 +147,13 @@
                     
                     </div>
                 </div>`);
-                        return;
+                    return;
                 }
                 if (content && content.toLowerCase().includes("vetado")) {// Ignora artigos com "vetado"
-                            ind++;
+                    ind++;
                     return;
                 }//depois de realizar mudanças no bd tirar essa verificação
-                
+
                 if (content) {
                     const { title, description } = extractTitleAndDescription(content);
                     const limitedDescription = limitWords(description, 150, index);
@@ -170,6 +173,18 @@
                     articlesContainer.insertAdjacentHTML('beforeend', articleHTML);
                 }
             });
+
+            fetch("./components/accessibility.html")
+                .then(res => res.ok ? res.text() : Promise.reject(`Erro ${res.status}`))
+                .then(html => {
+                    document.getElementById("accessibility-container").innerHTML = html;
+                    const script = document.createElement("script");
+                    script.src = "./js/accessibility.js";
+                    script.onload = () => console.log("Accessibility carregado");
+                    script.onerror = () => console.error("Falha ao carregar accessibility.js");
+                    document.body.appendChild(script);
+                })
+                .catch(err => console.error("Erro ao carregar componente de acessibilidade:", err));
         });
 
         document.getElementById('btn-search').onclick = async function (e) {
@@ -194,7 +209,7 @@
                 localStorage.setItem('query', query); // Salva a consulta do usuário
                 localStorage.setItem('articles', JSON.stringify(data)); // Salva os dados no localStorage
                 window.location.href = 'artigos.html';
-            }   catch (error) {
+            } catch (error) {
                 alert(`Erro de rede: ${error.message}`);
                 console.error('Erro durante a requisição:', error);
             }
