@@ -8,7 +8,19 @@
     --lime-green: #2ecc71;
     --muted-gray: #7f8c8d;
 
-    --a11y-font-scale: 1; /* escala inicial */
+    --a11y-font-scale: 1;
+    font-size: calc(16px * var(--a11y-font-scale, 1));
+    transition: font-size 0.3s ease;
+}
+
+html,
+body {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        font-size 0.3s ease,
+        line-height 0.3s ease,
+        letter-spacing 0.3s ease;
 }
 
 body {
@@ -136,8 +148,8 @@ h6, .fs-6 { font-size: calc(1rem * var(--a11y-font-scale)) !important; }
 }
 
 .card-img-top {
-    height: auto; 
-    object-fit: cover; 
+    height: auto;
+    object-fit: cover;
     display: block;
     margin: 0 auto;
     background-color: #f0f0f0;
@@ -150,6 +162,7 @@ h6, .fs-6 { font-size: calc(1rem * var(--a11y-font-scale)) !important; }
 
 .card {
     margin: 0 0.5em;
+    background-color: var(--white);
     box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
     border: none;
     border-radius: 0;
@@ -185,25 +198,90 @@ h6, .fs-6 { font-size: calc(1rem * var(--a11y-font-scale)) !important; }
     bottom: 20px;
     right: 20px;
     background: #0d6efd;
-    color: white;
+    color: var(--white);
     border-radius: 50%;
-    width: 50px; height: 50px;
-    display: flex; align-items: center; justify-content: center;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     z-index: 9999;
-  }
+}
 
-  .accessibility-panel {
+.accessibility-panel {
     position: fixed;
     bottom: 80px;
     right: 20px;
-    background: #fff;
+    background: var(--white);
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 15px;
     width: 250px;
     display: none;
     z-index: 9999;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ======= MODO ALTO CONTRASTE ======= */
+.feature,
+.search-box,
+.search-button,
+.search-bar {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.2s ease;
+}
+
+.high-contrast {
+    /* fundo e texto base */
+    background-color: #000 !important;
+    color: #fff !important;
+
+    /* substitui suas variáveis CSS */
+    --white: #000;
+    --ligth-gray: #fff;
+    --bright-red: #ff4040;
+    --lime-green: #00ff66;
+    --blue: #33aaff;
+}
+
+/* aplica a cor de texto e fundo de modo forçado em áreas-chave */
+.high-contrast .search-box,
+.high-contrast .feature {
+    background-color: #000 !important;
+    border-color: #fff !important;
+    color: #fff !important;
+}
+
+/* corrige textos "apagados" (ex: .text-muted) */
+.high-contrast .text-muted {
+    color: #ddd !important;
+}
+
+/* sobrescreve ícones e botões */
+.high-contrast .feature-icon {
+    color: #ff0 !important;
+    /* destaque forte */
+}
+
+.high-contrast .search-bar {
+    background-color: #111 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+}
+
+.high-contrast .search-button {
+    background-color: #ff0 !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+}
+
+/* links visíveis */
+.high-contrast a {
+    color: #0ff !important;
+    text-decoration: underline !important;
+}
