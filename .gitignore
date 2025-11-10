@@ -1,3 +1,54 @@
+# Arquivos/dados grandes gerados pela ingestão
 data_ingestion/CDC.txt
-back-end/venv
+
+# Python bytecode / caches
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+back-end/venv/
+
+# Local environment variables
+.env
+.env.*
+
+# IDE/editor
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+
+# Test / coverage
+.pytest_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Node modules (if any are added later)
+node_modules/
+
+# Caches and misc
+cache/
+*.cache
+
+# Keep explicit back-end pycache ignore (redundant but explicit)
 back-end/__pycache__/
