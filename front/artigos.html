@@ -177,8 +177,8 @@
                         articlesContainer.insertAdjacentHTML('beforeend', articleHTML);
                     }
 
-                });
-
+            });
+        }
             fetch("./components/accessibility.html")
                 .then(res => res.ok ? res.text() : Promise.reject(`Erro ${res.status}`))
                 .then(html => {
@@ -190,7 +190,7 @@
                     document.body.appendChild(script);
                 })
                 .catch(err => console.error("Erro ao carregar componente de acessibilidade:", err));
-        }});
+        });
 
         document.getElementById('btn-search').onclick = async function (e) {
             e.preventDefault();

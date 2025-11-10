@@ -252,7 +252,7 @@
       
       // Evento de mouseover para ler ao passar o mouse
       bound.mouseover = (e) => {
-        const el = e.target.closest('[data-readable], article, h1, h2, h3, p, button, a, input, select, textarea');
+        const el = e.target.closest('[data-readable], article, h1, h2, h3, h4, h5, p, button, a, input, select, textarea, label, span');
         if (el && leitor.isVisible(el)) {
           leitor.cancel(); // Para leitura anterior
           leitor.speakTextForElement(el).catch(() => {});
@@ -279,7 +279,23 @@
           leitor.speakTextForElement(el).catch(() => {});
         }
       };
-      
+        bound.selection = (e) => {
+            if (!active) return;
+            if (e.target.closest('#accessibility-panel, #accessibility-btn')) return;
+
+            // Pequeno delay para garantir que a seleção foi completada
+            setTimeout(() => {
+                const selectedText = window.getSelection().toString().trim();
+
+                // Só fala se tiver texto selecionado (mais de 1 caractere)
+                if (selectedText && selectedText.length > 1) {
+                    leitor.cancel();
+                    leitor.speak(selectedText).catch(() => { });
+                    console.log('📝 Texto selecionado:', selectedText.substring(0, 50));
+                }
+            }, 10);
+        };
+      document.addEventListener('mouseup', bound.selection); // ✨ NOVO
       document.addEventListener('mouseover', bound.mouseover, { passive: true });
       document.addEventListener('focusin', bound.focusin, true);
       document.addEventListener('click', bound.click, { passive: true });
@@ -302,6 +318,10 @@
       if (bound.mouseover){ document.removeEventListener('mouseover', bound.mouseover); bound.mouseover = null; }
       if (bound.focusin) {document.removeEventListener('focusin', bound.focusin, true); bound.focusin = null; }
       if (bound.click) {document.removeEventListener('click', bound.click, true); bound.click = null; }
+      if (bound.selection) { 
+            document.removeEventListener('mouseup', bound.selection);
+            bound.selection = null;
+    }
 
       // Desconecta MutationObserver
       if (observer) {
