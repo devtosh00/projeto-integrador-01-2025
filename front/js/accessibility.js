@@ -1,10 +1,41 @@
-// js/accessibility.js
 (function () {
-  const defaultSettings = { fontSize: 100, spacing: 100, contrast: false };
+  const defaultSettings = { 
+    fontSize: 100, 
+    spacing: 100, 
+    contrast: false,
+    audioReader: false
+  };
+
+  // <- NOVO: Helper para obter/criar controller
+  function getAudioReaderController() {
+    // Se já existe, retorna
+    if (window.audioReaderController) {
+      return window.audioReaderController;
+    }
+
+    // Verifica se a função de inicialização existe
+    if (typeof window.initLeitorAcessivel !== 'function') {
+      console.error('LeitorAcessivel não está carregado. Verifique se leitor-acessivel.js foi incluído antes.');
+      return null;
+    }
+
+    // Cria o controller
+    try {
+      window.audioReaderController = window.initLeitorAcessivel({
+        mainSelector: 'main',
+        autoRestore: false
+      });
+      return window.audioReaderController;
+    } catch (error) {
+      console.error('Erro ao criar LeitorAcessivel:', error);
+      return null;
+    }
+  }
 
   function loadSettings() {
     const settings = JSON.parse(localStorage.getItem("a11ySettings")) || defaultSettings;
     applySettings(settings);
+    return settings;
   }
 
   function saveSettings(settings) {
@@ -25,10 +56,37 @@
     const fontSpan = document.getElementById("a11y-font-value");
     const spacingSpan = document.getElementById("a11y-spacing-value");
     const contrastBtn = document.getElementById("a11y-contrast-toggle");
+    const audioBtn = document.getElementById("a11y-audio-toggle");
 
     if (fontSpan) fontSpan.textContent = s.fontSize + "%";
     if (spacingSpan) spacingSpan.textContent = s.spacing + "%";
     if (contrastBtn) contrastBtn.textContent = s.contrast ? "Desativar contraste" : "Ativar contraste";
+    
+    if (audioBtn) {
+      audioBtn.textContent = s.audioReader ? "🔊 Desativar Leitor" : "🔇 Ativar Leitor";
+      audioBtn.setAttribute('aria-pressed', s.audioReader ? 'true' : 'false');
+    }
+
+    // Aplica estado do áudio
+    applyAudioReaderState(s.audioReader);
+  }
+
+  // <- MODIFICADO: Usa o helper
+  function applyAudioReaderState(enabled) {
+    const controller = getAudioReaderController();
+    
+    if (!controller) {
+      console.warn('LeitorAcessivel não disponível. O estado será aplicado quando disponível.');
+      return;
+    }
+
+    if (enabled) {
+      controller.activate();
+      document.body.classList.add('audio-reader-active');
+    } else {
+      controller.deactivate();
+      document.body.classList.remove('audio-reader-active');
+    }
   }
 
   window.changeFontSize = function (action) {
@@ -48,6 +106,13 @@
   window.toggleContrast = function () {
     let s = JSON.parse(localStorage.getItem("a11ySettings")) || defaultSettings;
     s.contrast = !s.contrast;
+    applySettings(s);
+    saveSettings(s);
+  };
+
+  window.toggleAudioReader = function () {
+    let s = JSON.parse(localStorage.getItem("a11ySettings")) || defaultSettings;
+    s.audioReader = !s.audioReader;
     applySettings(s);
     saveSettings(s);
   };
@@ -84,12 +149,14 @@
     const sInc = document.getElementById("a11y-spacing-increase");
     const sDec = document.getElementById("a11y-spacing-decrease");
     const contrastBtn = document.getElementById("a11y-contrast-toggle");
+    const audioBtn = document.getElementById("a11y-audio-toggle");
 
     if (fInc) fInc.addEventListener("click", () => window.changeFontSize("increase"));
     if (fDec) fDec.addEventListener("click", () => window.changeFontSize("decrease"));
     if (sInc) sInc.addEventListener("click", () => window.changeSpacing("increase"));
     if (sDec) sDec.addEventListener("click", () => window.changeSpacing("decrease"));
     if (contrastBtn) contrastBtn.addEventListener("click", window.toggleContrast);
+    if (audioBtn) audioBtn.addEventListener("click", window.toggleAudioReader);
   }
 
   // Inicializa mesmo se o DOMContentLoaded JÁ tiver ocorrido (porque injetamos o HTML dinamicamente)
